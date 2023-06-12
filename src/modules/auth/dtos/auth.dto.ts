@@ -39,11 +39,6 @@ export class RegisterRequestDto {
   @MaxLength(30)
   @Expose()
   password: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Expose()
-  fullName: string;
 }
 
 @Exclude()

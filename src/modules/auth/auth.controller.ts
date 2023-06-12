@@ -38,9 +38,9 @@ export class AuthController {
     return this.authService.forgotPassword(body);
   }
 
-  @Post('verify-forgot-password')
-  @UsePipes(ValidationPipe)
-  verifyForgotPassword(@Body() body: VerifyForgotPasswordDto) {
-    return this.authService.veriForgotPassword(body);
-  }
+  // @Post('verify-forgot-password')
+  // @UsePipes(ValidationPipe)
+  // verifyForgotPassword(@Body() body: VerifyForgotPasswordDto) {
+  //   return this.authService.veriForgotPassword(body);
+  // }
 }

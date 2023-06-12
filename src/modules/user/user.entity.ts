@@ -1,22 +1,13 @@
-import { RateEntity } from './../rate/rate.entity';
-import { LikeEntity } from './../like/like.entity';
-import { TransactionEntity } from './../transaction/transaction.entity';
-import { HistoryEntity } from './../history/history.entity';
-import { FavoriteEntity } from './../favorite/favorite.entity';
-import { DownloadEntity } from './../download/download.entity';
-import { CommentEntity } from './../comment/comment.entity';
+import { MessageEntity } from '../messages/message.entity';
+import { RoomEntity } from './../rooms/room.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { BaseEntity } from '@src/common/entities/base.entity';
-import { BookEntity } from './../book/entity/book.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'id' })
   id: number;
-
-  @Column('varchar', { name: 'full_name', nullable: true })
-  full_name: string;
 
   @Column('varchar', { name: 'email' })
   email: string;
@@ -24,51 +15,9 @@ export class UserEntity extends BaseEntity {
   @Column('varchar', { name: 'password' })
   password: string;
 
-  @Column('datetime', { name: 'date_of_birth', nullable: true })
-  date_of_birth: Date;
+  @OneToMany(() => RoomEntity, (room) => room.user)
+  rooms: RoomEntity[];
 
-  @Column('int', { name: 'gender', nullable: true })
-  gender: number;
-
-  @Column('varchar', { name: 'avatar', nullable: true })
-  avatar: string;
-
-  @Column('varchar', { name: 'code', nullable: true })
-  code: string;
-
-  @Column('datetime', { name: 'code_expire_at', nullable: true })
-  code_expire_at: Date;
-
-  @Column('int', { name: 'role_id' })
-  role_id: number;
-
-  @Column('int', { name: 'vip_id' })
-  vip_id: number;
-
-  @Column('datetime', { name: 'expired_vip_at', nullable: true })
-  expired_vip_at: Date;
-
-  @OneToMany(() => BookEntity, (book) => book.author)
-  books: BookEntity[];
-
-  @OneToMany(() => CommentEntity, (comment) => comment.user)
-  comments: CommentEntity[];
-
-  @OneToMany(() => DownloadEntity, (download) => download.user)
-  downloads: DownloadEntity[];
-
-  @OneToMany(() => FavoriteEntity, (favorite) => favorite.user)
-  favorites: FavoriteEntity[];
-
-  @OneToMany(() => LikeEntity, (like) => like.user)
-  likes: LikeEntity[];
-
-  @OneToMany(() => RateEntity, (rate) => rate.user)
-  rates: RateEntity[];
-
-  @OneToMany(() => HistoryEntity, (history) => history.user)
-  histories: HistoryEntity[];
-
-  @OneToMany(() => TransactionEntity, (transaction) => transaction.user)
-  transactions: TransactionEntity[];
+  @OneToMany(() => MessageEntity, (message) => message.user)
+  messages: MessageEntity[];
 }

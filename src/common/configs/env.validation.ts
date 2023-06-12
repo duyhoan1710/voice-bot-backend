@@ -88,4 +88,8 @@ class EnvironmentVariables {
   @IsString()
   @IsOptional()
   MYSQL_DATABASE: string;
+
+  @IsString()
+  @IsOptional()
+  CHATGPT_TOKEN: string;
 }
