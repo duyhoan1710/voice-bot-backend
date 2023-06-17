@@ -69,6 +69,7 @@ export class RoomService {
         'message',
         'message.created_at = latestMessage.latest',
       )
+      .where('room.user_id = :userId', { userId })
       .orderBy('room.id', 'DESC')
       .getMany();
   }

@@ -1,5 +1,10 @@
 import { ConfigService } from '@nestjs/config';
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import {
+  Injectable,
+  OnModuleInit,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { Configuration, OpenAIApi } from 'openai';
 import * as AWS from 'aws-sdk';
 
@@ -98,6 +103,13 @@ export class MessageService implements OnModuleInit {
       };
     } catch (e) {
       console.log(e);
+      throw new HttpException(
+        {
+          status: HttpStatus.TOO_MANY_REQUESTS,
+          error: { message: 'Too many request to GPT' },
+        },
+        HttpStatus.TOO_MANY_REQUESTS,
+      );
     }
   }
 
